@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # BLOCO 1: A Loja (Microsserviços base do Sock Shop)
+  # ==========================================
+  front-end:
+    image: weaveworksdemos/front-end:0.3.12
+    hostname: front-end
+    restart: always
+
+  edge-router:
+    image: weaveworksdemos/edge-router:0.1.1
+    ports:
+      - '8081:80' # Porta alterada para 8081 para evitar conflitos no seu Windows
+    depends_on:
+      - front-end
+      - catalogue
+      - orders
+      - carts
+      - user
+
+  catalogue:
+    image: weaveworksdemos/catalogue:0.3.5
+    hostname: catalogue
+    depends_on:
+      - catalogue-db
+
+  catalogue-db:
+    image: weaveworksdemos/catalogue-db:0.3.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_DATABASE=socksdb
+
+  carts:
+    image: weaveworksdemos/carts:0.4.8
+    hostname: carts
+    depends_on:
+      - carts-db
+
+  carts-db:
+    image: mongo:4.2
+
+  orders:
+    image: weaveworksdemos/orders:0.4.7
+    hostname: orders
+    depends_on:
+      - orders-db
+
+  orders-db:
+    image: mongo:4.2
+
+  payment:
+    image: weaveworksdemos/payment:0.4.3
+    hostname: payment
+
+  shipping:
+    image: weaveworksdemos/shipping:0.4.8
+    hostname: shipping
+
+  queue-master:
+    image: weaveworksdemos/queue-master:0.3.1
+    hostname: queue-master
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.6.8-management
+
+  user:
+    image: weaveworksdemos/user:0.4.4
+    hostname: user
+    depends_on:
+      - user-db
+
+  user-db:
+    image: weaveworksdemos/user-db:0.3.0
