@@ -144,6 +144,7 @@ services:
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.15.3
     user: root
+    command: ["--strict.perms=false"]
     volumes:
       - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
