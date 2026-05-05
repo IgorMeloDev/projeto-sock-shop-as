@@ -10,3 +10,7 @@ scrape_configs:
     static_configs:
       # Aqui dizemos ao Prometheus quais microserviços ele deve vigiar
       - targets: ['front-end:8079', 'catalogue:80', 'orders:80', 'payment:80', 'user:80']
+      
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
