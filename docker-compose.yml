@@ -94,6 +94,9 @@ services:
     image: grafana/grafana:11.1.4
     ports:
       - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
     depends_on:
       - prometheus
   cadvisor:
@@ -151,4 +154,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - logstash
+
+volumes:
+  grafana_data:
       
