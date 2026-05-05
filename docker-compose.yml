@@ -76,3 +76,23 @@ services:
 
   user-db:
     image: weaveworksdemos/user-db:0.3.0
+    # ==========================================
+  # BLOCO 2: Monitoramento (Exercício 2)
+  # ==========================================
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - front-end
+
+  grafana:
+    image: grafana/grafana:11.1.4
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
