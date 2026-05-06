@@ -34,11 +34,11 @@ O objetivo principal deste projeto é aplicar práticas reais de DevOps, impleme
    git clone https://github.com/IgorMeloDev/projeto-sock-shop-as
 
 2. Acesse a pasta do projeto:
-
+ ```bash
 cd projeto-sock-shop-as
 
 3. Suba a infraestrutura completa em segundo plano:
-
+ ```bash
 docker compose up -d
 
 🌐 Acessando os Serviços
