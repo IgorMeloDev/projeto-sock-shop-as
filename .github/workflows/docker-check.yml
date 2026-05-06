@@ -2,15 +2,9 @@ name: Docker Compose Validation
 
 on:
   push:
-<<<<<<< HEAD
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
-=======
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
->>>>>>> 954934eff82dd4da2a558a9c368cd9b0e433360b
 
 jobs:
   validate:
@@ -19,8 +13,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate Docker Compose File
-<<<<<<< HEAD
         run: docker compose config
-=======
-        run: docker compose config
->>>>>>> 954934eff82dd4da2a558a9c368cd9b0e433360b
